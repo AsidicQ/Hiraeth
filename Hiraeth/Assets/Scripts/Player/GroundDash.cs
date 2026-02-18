@@ -23,8 +23,10 @@ public class GroundDash : MonoBehaviour
 
     void Update()
     {
+        bool nothingInTheWay = !Physics.SphereCast(transform.position, playerCollider.radius,
+            transform.forward, out RaycastHit hit, 0.5f, collisionMask, QueryTriggerInteraction.Ignore);
 
-        if (Input.GetKeyDown(dashKey) && !isDashing)
+        if (Input.GetKeyDown(dashKey) && !isDashing && !nothingInTheWay)
         {
             StartCoroutine(DashRoutine());
         }
@@ -46,6 +48,9 @@ public class GroundDash : MonoBehaviour
         {
             moveDirection = -movement.orientation.forward;
         }
+
+        int groundLayer = LayerMask.NameToLayer("Ground");
+        LayerMask dashMask = collisionMask & ~(1 << groundLayer);
 
         moveDirection.y = 0f;
         moveDirection.Normalize();
@@ -78,8 +83,9 @@ public class GroundDash : MonoBehaviour
                 GetCapsuleWorldPoints(position, out Vector3 point1, out Vector3 point2, out float radius);
 
                 if (Physics.CapsuleCast(point1, point2, radius, moveDirection, out RaycastHit hit, dashDist,
-                    collisionMask, QueryTriggerInteraction.Ignore))
+                    dashMask, QueryTriggerInteraction.Ignore))
                 {
+                    Debug.Log("Dash hit: " + hit.collider.name + " layer=" + hit.collider.gameObject.layer + " trigger=" + hit.collider.isTrigger);
                     float inset = 0.01f;
                     movement.rb.MovePosition(position + moveDirection * Mathf.Max(0f, hit.distance - inset));
                     break;
