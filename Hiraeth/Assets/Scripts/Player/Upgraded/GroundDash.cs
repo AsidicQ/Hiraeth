@@ -24,9 +24,9 @@ public class GroundDash : MonoBehaviour
     void Update()
     {
         bool nothingInTheWay = !Physics.SphereCast(transform.position, playerCollider.radius,
-            transform.forward, out RaycastHit hit, 0.5f, collisionMask, QueryTriggerInteraction.Ignore);
+            transform.forward, out RaycastHit hit, 1f, collisionMask, QueryTriggerInteraction.Ignore);
 
-        if (Input.GetKeyDown(dashKey) && !isDashing && !nothingInTheWay)
+        if (Input.GetKeyDown(dashKey) && !isDashing && nothingInTheWay)
         {
             StartCoroutine(DashRoutine());
         }
@@ -54,6 +54,14 @@ public class GroundDash : MonoBehaviour
 
         moveDirection.y = 0f;
         moveDirection.Normalize();
+
+        Vector3 startPosition = movement.rb.position;
+        if (isCapsuleOverlapping(startPosition, dashMask))
+        {
+            Debug.Log("Cannot dash: starting position is obstructed.");
+            isDashing = false;
+            yield break;
+        }
 
         Vector3 velocity = movement.rb.linearVelocity;
         movement.rb.linearVelocity = new Vector3(0f, velocity.y, 0f);
@@ -113,5 +121,16 @@ public class GroundDash : MonoBehaviour
         Vector3 up = ct.up;
         point1 = center + up * halfHeight;
         point2 = center - up * halfHeight;
+    }
+
+    bool isCapsuleOverlapping(Vector3 rbPosition, LayerMask mask)
+    {
+        GetCapsuleWorldPoints(rbPosition, out Vector3 point1, out Vector3 point2, out float radius);
+
+        float skin = 0.01f;
+        radius = Mathf.Max(0f, radius - skin);
+
+        Collider[] hits = Physics.OverlapCapsule(point1, point2, radius, mask, QueryTriggerInteraction.Ignore);
+        return hits != null && hits.Length > 0;
     }
 }

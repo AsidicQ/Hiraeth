@@ -22,11 +22,11 @@ public class SprintingFOV : MonoBehaviour
     {
         if (playerMovement.state == Movement.MovementState.Sprinting)
         {
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, TargetFOV, Time.deltaTime * FOVTransitionSpeed);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, TargetFOV, FOVTransitionSpeed);
         }
         else
         {
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, defaultFOV, Time.deltaTime * FOVTransitionSpeed);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, defaultFOV, FOVTransitionSpeed);
         }
     }
 }

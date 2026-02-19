@@ -351,12 +351,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90530952}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.3420201, w: 0.9396927}
-  m_LocalPosition: {x: 9.57, y: 3.04, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3420201, w: 0.9396927}
+  m_LocalPosition: {x: 9.67, y: 3.04, z: 0}
   m_LocalScale: {x: 10, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1586800774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 40}
 --- !u!1 &633639383
 GameObject:
@@ -825,12 +825,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383885901}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 10, y: 2.38, z: 4}
-  m_LocalScale: {x: 10, y: 0.2, z: 2}
+  m_LocalRotation: {x: -0, y: -0, z: 0.2588191, w: 0.9659258}
+  m_LocalPosition: {x: 16.75, y: 6.1, z: 4}
+  m_LocalScale: {x: 25, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1586800774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
 --- !u!1 &1491960690
 GameObject:
@@ -963,6 +963,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1672722360}
+  - {fileID: 1383885905}
+  - {fileID: 90530956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1672722359
@@ -1078,6 +1080,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1799647274}
+  - component: {fileID: 1799647279}
   - component: {fileID: 1799647278}
   - component: {fileID: 1799647277}
   - component: {fileID: 1799647275}
@@ -1123,8 +1126,8 @@ MonoBehaviour:
   sprintSpeed: 6.5
   isSprinting: 0
   canSprint: 0
-  accelerationSpeed: 7.5
-  jumpForce: 22.5
+  accelerationSpeed: 9
+  jumpForce: 15
   jumpCoolDown: 0.4
   airMultiplier: 1.25
   crouchSpeed: 2
@@ -1135,7 +1138,7 @@ MonoBehaviour:
     m_Bits: 64
   grounded: 0
   maxSlopeAngle: 35
-  slidingThreshold: 0.4
+  slidingThreshold: 0.3
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
@@ -1182,8 +1185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b8f78adbfa5fe479c72250641b930a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SprintingFOV
-  TargetFOV: 75
-  FOVTransitionSpeed: 1
+  TargetFOV: 70
+  FOVTransitionSpeed: 0.01
   playerCamera: {fileID: 1337345300}
 --- !u!114 &1799647278
 MonoBehaviour:
@@ -1198,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDash
   dashDistance: 10
-  dashDuration: 0.2
+  dashDuration: 0.4
   dashCurve:
     serializedVersion: 2
     m_Curve:
@@ -1212,14 +1215,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8330441
-      value: 0.6513193
-      inSlope: 1.3943129
-      outSlope: 1.3943129
+      time: 0.6897131
+      value: 0.3982314
+      inSlope: 0.85775566
+      outSlope: 0.85775566
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.7604156
+      outWeight: 0.4306346
     - serializedVersion: 3
       time: 1
       value: 1
@@ -1232,10 +1235,28 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dashKey: 308
+  dashKey: 99
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1799647279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799647273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39842e206828dd74cb06238b4c462526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Floating
+  upwardGravity: 40
+  floatingSpeed: 4
+  speedDuration: 0.75
+  isFloating: 0
+  firstKey: 323
+  secondKey: 324
 --- !u!1 &1800853061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7725550455073907413, guid: fc5a676d2c90b3d4f8a22e369c35950d, type: 3}
@@ -1334,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa1941234f89744d84241c61b3bba71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gravity
-  gravityFallRate: 18
+  gravityFallRate: 15
   movement: {fileID: 1799647275}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1345,5 +1366,3 @@ SceneRoots:
   - {fileID: 1799647274}
   - {fileID: 1491960691}
   - {fileID: 1575499452}
-  - {fileID: 1383885905}
-  - {fileID: 90530956}

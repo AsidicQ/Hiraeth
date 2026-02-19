@@ -3,7 +3,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     public bool isSprinting;
@@ -62,8 +62,9 @@ public class Movement : MonoBehaviour
     private void StateHandler()
     {
         bool sliding = Physics.Raycast(transform.position, Vector3.down, slidingThreshold, whatIsGround);
+        bool tooSteep = OnSlope() && Vector3.Angle(Vector3.up, slopeHit.normal) > maxSlopeAngle;
 
-        if (grounded && Input.GetKey(sprintKey) && canSprint && (rb.linearVelocity.magnitude >= 0.2f))
+        if (grounded && Input.GetKey(sprintKey) && canSprint && (rb.linearVelocity.magnitude >= 0.1f))
         {
             state = MovementState.Sprinting;
             isSprinting = true;
@@ -107,20 +108,14 @@ public class Movement : MonoBehaviour
         canSprint = true;
 
         startYScale = transform.localScale.y;
+        moveSpeed = walkSpeed;
     }
 
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        if (grounded)
-        {
-            rb.linearDamping = groundDrag;
-        }
-        else
-        {
-            rb.linearDamping = 0;
-        }
+        rb.linearDamping = grounded ? groundDrag : 0f;
 
         if (canMove)
         {
@@ -128,7 +123,6 @@ public class Movement : MonoBehaviour
             SpeedControl();
             StateHandler();
         }
-        rb.linearDamping = groundDrag;
     }
 
     private void FixedUpdate()
@@ -176,23 +170,21 @@ public class Movement : MonoBehaviour
 
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 15f, ForceMode.Force);
 
             if (rb.linearVelocity.y > 0)
             {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 30f, ForceMode.Force);
             }
-        }
-        rb.useGravity = !OnSlope();
 
-        if (grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.useGravity = false; 
+            return;
         }
-        else if (!grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-        }
+
+        rb.useGravity = true;
+
+        if (grounded) rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        else rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()
@@ -239,10 +231,13 @@ public class Movement : MonoBehaviour
 
     private bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        Vector3 origin = transform.position + Vector3.up * 0.1f;
+        float castDistance = playerHeight * 0.5f + 0.6f;
+
+        if (Physics.SphereCast(origin, slidingThreshold, Vector3.down, out slopeHit, castDistance, whatIsGround))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
+            return angle > 0 && angle < maxSlopeAngle;
         }
 
         return false;
