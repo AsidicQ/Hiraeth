@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class GroundDash : MonoBehaviour
 {
+    [Header("References")]
     private Movement movement;
     private CapsuleCollider playerCollider;
+    public CameraBobbing cameraBobbing;
 
     [Header("Dash Settings")]
     public float dashDistance = 15f;
@@ -12,6 +14,9 @@ public class GroundDash : MonoBehaviour
     public AnimationCurve dashCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public KeyCode dashKey = KeyCode.LeftAlt;
     public LayerMask collisionMask = ~0;
+
+    [Header("Collision Settings")]
+    public float skin = 0.01f;
 
     private bool isDashing;
 
@@ -23,10 +28,7 @@ public class GroundDash : MonoBehaviour
 
     void Update()
     {
-        bool nothingInTheWay = !Physics.SphereCast(transform.position, playerCollider.radius,
-            transform.forward, out RaycastHit hit, 1f, collisionMask, QueryTriggerInteraction.Ignore);
-
-        if (Input.GetKeyDown(dashKey) && !isDashing && nothingInTheWay)
+        if (Input.GetKeyDown(dashKey) && !isDashing)
         {
             StartCoroutine(DashRoutine());
         }
@@ -38,6 +40,8 @@ public class GroundDash : MonoBehaviour
             yield break;
 
         isDashing = true;
+        movement.canMove = false;
+        cameraBobbing.enabled = false;
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -49,22 +53,10 @@ public class GroundDash : MonoBehaviour
             moveDirection = -movement.orientation.forward;
         }
 
-        int groundLayer = LayerMask.NameToLayer("Ground");
-        LayerMask dashMask = collisionMask & ~(1 << groundLayer);
+        LayerMask dashMask = collisionMask & ~movement.whatIsGround;
 
         moveDirection.y = 0f;
         moveDirection.Normalize();
-
-        Vector3 startPosition = movement.rb.position;
-        if (isCapsuleOverlapping(startPosition, dashMask))
-        {
-            Debug.Log("Cannot dash: starting position is obstructed.");
-            isDashing = false;
-            yield break;
-        }
-
-        Vector3 velocity = movement.rb.linearVelocity;
-        movement.rb.linearVelocity = new Vector3(0f, velocity.y, 0f);
 
         float elapsedTime = 0f;
         float previousTime = 0f;
@@ -79,38 +71,72 @@ public class GroundDash : MonoBehaviour
 
             float curveNow = dashCurve.Evaluate(time);
             float curvePrev = dashCurve.Evaluate(previousTime);
-            float stepPortion = curveNow - curvePrev;
+            float stepPortion = Mathf.Max(0f, curveNow - curvePrev);
 
-            Vector3 dash = moveDirection * (dashDistance * stepPortion);
-            float dashDist = dash.magnitude;
+            float stepDistance = dashDistance * stepPortion;
 
-            if (dashDist > 0f)
+            if (stepDistance <= 0f)
             {
-                Vector3 position = movement.rb.position;
+                previousTime = time;
+                continue;
+            }
 
-                GetCapsuleWorldPoints(position, out Vector3 point1, out Vector3 point2, out float radius);
-
-                if (Physics.CapsuleCast(point1, point2, radius, moveDirection, out RaycastHit hit, dashDist,
-                    dashMask, QueryTriggerInteraction.Ignore))
+            float maxMove = stepDistance;
+            float currentY = movement.rb.linearVelocity.y;
+            if (TryGetBlockedDistance(moveDirection, maxMove + skin, dashMask, out float hitDist))
+            {
+                float allowed = hitDist - skin;
+                if (allowed <= 0f)
                 {
-                    Debug.Log("Dash hit: " + hit.collider.name + " layer=" + hit.collider.gameObject.layer + " trigger=" + hit.collider.isTrigger);
-                    float inset = 0.01f;
-                    movement.rb.MovePosition(position + moveDirection * Mathf.Max(0f, hit.distance - inset));
+                    Debug.Log("Dash blocked immediately.");
                     break;
                 }
 
-                movement.rb.MovePosition(position + dash);
+                float stepSpeed = allowed / Time.fixedDeltaTime;
+                movement.rb.linearVelocity = moveDirection * stepSpeed + Vector3.up * currentY;
+                previousTime = time;
+                break;
             }
+            float speed = maxMove / Time.fixedDeltaTime;
+            float y = movement.rb.linearVelocity.y;
+            movement.rb.linearVelocity = moveDirection * speed + Vector3.up * y;
 
             previousTime = time;
         }
+
+        movement.canMove = true;
+        cameraBobbing.enabled = true;
         isDashing = false;
+    }
+
+    bool TryGetBlockedDistance(Vector3 moveDirection, float maxDistance, LayerMask mask, out float hitDistance)
+    {
+        GetCapsuleWorldPoints(movement.rb.position, out Vector3 point1, out Vector3 point2, out float radius);
+
+        radius = Mathf.Max(0f, radius - skin);
+
+        if (Physics.CapsuleCast(point1, point2, radius, moveDirection, out RaycastHit hit, 
+            maxDistance, mask, QueryTriggerInteraction.Ignore))
+        {
+            if (hit.collider != null)
+            {
+                if (hit.collider == playerCollider) { hitDistance = 0f; return false; }
+                if (hit.collider.attachedRigidbody == movement.rb) { hitDistance = 0f; return false; }
+                if (hit.collider.transform.IsChildOf(transform)) { hitDistance = 0f; return false; }
+            }
+
+            hitDistance = hit.distance;
+            return true;
+        }
+
+        hitDistance = 0f;
+        return false;
     }
 
     void GetCapsuleWorldPoints(Vector3 rbPosition, out Vector3 point1, out Vector3 point2, out float radius)
     {
         Transform ct = playerCollider.transform;
-        Vector3 center = ct.TransformPoint(playerCollider.center);
+        Vector3 center = rbPosition + (ct.rotation * playerCollider.center);
 
         float scaleXZ = Mathf.Max(ct.lossyScale.x, ct.lossyScale.z);
         radius = playerCollider.radius * scaleXZ;
@@ -121,16 +147,5 @@ public class GroundDash : MonoBehaviour
         Vector3 up = ct.up;
         point1 = center + up * halfHeight;
         point2 = center - up * halfHeight;
-    }
-
-    bool isCapsuleOverlapping(Vector3 rbPosition, LayerMask mask)
-    {
-        GetCapsuleWorldPoints(rbPosition, out Vector3 point1, out Vector3 point2, out float radius);
-
-        float skin = 0.01f;
-        radius = Mathf.Max(0f, radius - skin);
-
-        Collider[] hits = Physics.OverlapCapsule(point1, point2, radius, mask, QueryTriggerInteraction.Ignore);
-        return hits != null && hits.Length > 0;
     }
 }
