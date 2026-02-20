@@ -2046,7 +2046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Floating
   gravityScript: {fileID: 1997771252}
-  upwardGravity: 80
+  upwardGravity: 50
+  newWorldGravity: -5
   floatingSpeed: 3
   heightAboveGround: 4
   speedDuration: 0.75

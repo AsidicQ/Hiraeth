@@ -83,7 +83,8 @@ public class GroundDash : MonoBehaviour
 
             float maxMove = stepDistance;
             float currentY = movement.rb.linearVelocity.y;
-            if (TryGetBlockedDistance(moveDirection, maxMove + skin, dashMask, out float hitDist))
+            if (TryGetBlockedDistance(moveDirection, maxMove + skin, dashMask, out float hitDist,
+                out Vector3 hitNormal))
             {
                 float allowed = hitDist - skin;
                 if (allowed <= 0f)
@@ -93,7 +94,16 @@ public class GroundDash : MonoBehaviour
                 }
 
                 float stepSpeed = allowed / Time.fixedDeltaTime;
-                movement.rb.linearVelocity = moveDirection * stepSpeed + Vector3.up * currentY;
+
+                float yAxis = movement.rb.linearVelocity.y;
+                Vector3 v = moveDirection * stepSpeed + Vector3.up * yAxis;
+
+                v = Vector3.ProjectOnPlane(v, hitNormal);
+
+                if (v.y > 0f) v.y = 0f;
+
+                movement.rb.linearVelocity = v;
+
                 previousTime = time;
                 break;
             }
@@ -109,7 +119,7 @@ public class GroundDash : MonoBehaviour
         isDashing = false;
     }
 
-    bool TryGetBlockedDistance(Vector3 moveDirection, float maxDistance, LayerMask mask, out float hitDistance)
+    bool TryGetBlockedDistance(Vector3 moveDirection, float maxDistance, LayerMask mask, out float hitDistance, out Vector3 hitNormal)
     {
         GetCapsuleWorldPoints(movement.rb.position, out Vector3 point1, out Vector3 point2, out float radius);
 
@@ -118,18 +128,13 @@ public class GroundDash : MonoBehaviour
         if (Physics.CapsuleCast(point1, point2, radius, moveDirection, out RaycastHit hit, 
             maxDistance, mask, QueryTriggerInteraction.Ignore))
         {
-            if (hit.collider != null)
-            {
-                if (hit.collider == playerCollider) { hitDistance = 0f; return false; }
-                if (hit.collider.attachedRigidbody == movement.rb) { hitDistance = 0f; return false; }
-                if (hit.collider.transform.IsChildOf(transform)) { hitDistance = 0f; return false; }
-            }
-
             hitDistance = hit.distance;
+            hitNormal = hit.normal;
             return true;
         }
 
         hitDistance = 0f;
+        hitNormal = Vector3.up;
         return false;
     }
 

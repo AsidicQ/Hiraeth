@@ -8,6 +8,7 @@ public class Floating : MonoBehaviour
 
     [Header("Floating Settings")]
     public float upwardGravity = 45;
+    public float newWorldGravity = -5f;
     public float floatingSpeed = 1f;
     public float heightAboveGround = 3f;
     [SerializeField] private float speedDuration = 0.5f;
@@ -42,6 +43,7 @@ public class Floating : MonoBehaviour
         if (movement.state == Movement.MovementState.Air && isFloating)
         {
             gravityScript.enabled = false;
+            Physics.gravity = new Vector3(0, newWorldGravity, 0);
             Vector3 velocity = movement.rb.linearVelocity;
             velocity.y += upwardGravity * Time.fixedDeltaTime;
 
@@ -50,6 +52,7 @@ public class Floating : MonoBehaviour
         else
         {
             gravityScript.enabled = true;
+            Physics.gravity = new Vector3(0, -25, 0);
         }
     }
 }
