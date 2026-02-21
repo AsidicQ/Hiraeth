@@ -12,6 +12,7 @@ public class GroundDash : MonoBehaviour
     public float dashDistance = 15f;
     public float dashDuration = 0.2f;
     public AnimationCurve dashCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public AnimationCurve cameraCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public KeyCode dashKey = KeyCode.LeftAlt;
     public LayerMask collisionMask = ~0;
 
@@ -73,13 +74,25 @@ public class GroundDash : MonoBehaviour
             float curvePrev = dashCurve.Evaluate(previousTime);
             float stepPortion = Mathf.Max(0f, curveNow - curvePrev);
 
+            float cameraCurveNow = cameraCurve.Evaluate(time);
+            float cameraCurvePrev = cameraCurve.Evaluate(previousTime);
+            float cameraPortion = Mathf.Max(0f, cameraCurveNow - cameraCurvePrev);
+
             float stepDistance = dashDistance * stepPortion;
+            float cameraAmount = cameraPortion * dashDistance;
 
             if (stepDistance <= 0f)
             {
                 previousTime = time;
                 continue;
             }
+
+            if (cameraAmount <= 0f)
+            {
+                continue;
+            }
+
+            // Apply camera bobbing effect
 
             float maxMove = stepDistance;
             float currentY = movement.rb.linearVelocity.y;

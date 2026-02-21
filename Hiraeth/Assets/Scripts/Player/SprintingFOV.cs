@@ -3,8 +3,8 @@ using UnityEngine;
 public class SprintingFOV : MonoBehaviour
 {
     [Tooltip("The FOV to set when sprinting.")]
-    public float TargetFOV = 80f;
-    public float FOVTransitionSpeed = 5f;
+    public float FOV_increaseRate = 5f;
+    public float FOV_transitionSpeed = 5f;
     private float defaultFOV;
 
     [Header("References")]
@@ -22,11 +22,11 @@ public class SprintingFOV : MonoBehaviour
     {
         if (playerMovement.state == Movement.MovementState.Sprinting)
         {
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, TargetFOV, FOVTransitionSpeed);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, (defaultFOV + FOV_increaseRate), FOV_transitionSpeed);
         }
         else
         {
-            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, defaultFOV, FOVTransitionSpeed);
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, defaultFOV, FOV_transitionSpeed);
         }
     }
 }
