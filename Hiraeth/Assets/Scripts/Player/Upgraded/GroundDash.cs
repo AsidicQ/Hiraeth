@@ -13,6 +13,7 @@ public class GroundDash : MonoBehaviour
     public float dashDuration = 0.2f;
     public AnimationCurve dashCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public AnimationCurve cameraCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public float dashTiltAmount = 5f;
     public KeyCode dashKey = KeyCode.LeftAlt;
     public LayerMask collisionMask = ~0;
 
@@ -42,7 +43,7 @@ public class GroundDash : MonoBehaviour
 
         isDashing = true;
         movement.canMove = false;
-        cameraBobbing.enabled = false;
+        cameraBobbing.isDashing = true;
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -75,24 +76,15 @@ public class GroundDash : MonoBehaviour
             float stepPortion = Mathf.Max(0f, curveNow - curvePrev);
 
             float cameraCurveNow = cameraCurve.Evaluate(time);
-            float cameraCurvePrev = cameraCurve.Evaluate(previousTime);
-            float cameraPortion = Mathf.Max(0f, cameraCurveNow - cameraCurvePrev);
+            cameraBobbing.dashBobAmount = cameraCurveNow * dashTiltAmount;
 
             float stepDistance = dashDistance * stepPortion;
-            float cameraAmount = cameraPortion * dashDistance;
 
             if (stepDistance <= 0f)
             {
                 previousTime = time;
                 continue;
             }
-
-            if (cameraAmount <= 0f)
-            {
-                continue;
-            }
-
-            // Apply camera bobbing effect
 
             float maxMove = stepDistance;
             float currentY = movement.rb.linearVelocity.y;
@@ -127,9 +119,14 @@ public class GroundDash : MonoBehaviour
             previousTime = time;
         }
 
+        Vector3 finalVelocity = movement.rb.linearVelocity;
+        movement.rb.linearVelocity = new Vector3(0f, finalVelocity.y, 0f);
+
+        cameraBobbing.isDashing = false;
+        cameraBobbing.ResetBobCycle();
         movement.canMove = true;
-        cameraBobbing.enabled = true;
         isDashing = false;
+        StartCoroutine(FadeOutDashBob());
     }
 
     bool TryGetBlockedDistance(Vector3 moveDirection, float maxDistance, LayerMask mask, out float hitDistance, out Vector3 hitNormal)
@@ -165,5 +162,21 @@ public class GroundDash : MonoBehaviour
         Vector3 up = ct.up;
         point1 = center + up * halfHeight;
         point2 = center - up * halfHeight;
+    }
+
+    IEnumerator FadeOutDashBob()
+    {
+        float start = cameraBobbing.dashBobAmount;
+        float elapsed = 0f;
+        float duration = 0.15f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            cameraBobbing.dashBobAmount = Mathf.Lerp(start, 0f, elapsed / duration);
+            yield return null;
+        }
+
+        cameraBobbing.dashBobAmount = 0f;
     }
 }

@@ -19,6 +19,12 @@ public class CameraBobbing : MonoBehaviour
     public Rigidbody controller;
     public Movement movement;
 
+    [Header("Dash Ability")]
+    [SerializeField] private float dashBobFrequency = 8f;
+    [HideInInspector] public float dashBobAmount = 0f;
+    private float dashBlend;
+    [HideInInspector] public bool isDashing = false;
+
     private Vector3 startLocalPos;
 
     void Start()
@@ -38,6 +44,7 @@ public class CameraBobbing : MonoBehaviour
         if (!enable || controller == null || movement == null)
             return;
 
+        //Find Movement Speed
         float targetSpeed = new Vector3(controller.linearVelocity.x, 0f, controller.linearVelocity.z).magnitude;
         smoothedSpeed = Mathf.Lerp(smoothedSpeed, targetSpeed, speedSmooth * Time.deltaTime);
 
@@ -46,32 +53,28 @@ public class CameraBobbing : MonoBehaviour
         if (bobCycle > Mathf.PI * 2f)
             bobCycle -= Mathf.PI * 2f;
 
-        if (smoothedSpeed < toggleSpeed || !movement.grounded)
+        //Walking or Running Bob
+        Vector3 walkOffset = Vector3.zero;
+
+        if (!isDashing && smoothedSpeed >= toggleSpeed && movement.grounded)
         {
-            ResetPosition();
-            return;
+            float amplitude = (smoothedSpeed > movement.sprintSpeed) ? runAmplitude : walkAmplitude;
+            float frequency = (smoothedSpeed > movement.sprintSpeed) ? runFrequency : walkFrequency;
+            walkOffset = new Vector3(
+                Mathf.Cos(bobCycle * frequency / 2f) * amplitude * 2f,
+                Mathf.Sin(bobCycle * frequency) * amplitude, 0f);
         }
 
-        ApplyHeadbob(smoothedSpeed);
+        dashBlend = Mathf.Lerp(dashBlend, dashBobAmount, 15f * Time.deltaTime);
+        Vector3 dashOffset = new Vector3(0f, dashBlend, 0f);
+
+        cameraHolder.localPosition = startLocalPos + walkOffset + dashOffset;
     }
 
-    private void ApplyHeadbob(float speed)
+    public void ResetBobCycle()
     {
-        float amplitude = (speed > movement.sprintSpeed) ? runAmplitude : walkAmplitude;
-        float frequency = (speed > movement.sprintSpeed) ? runFrequency : walkFrequency;
-
-        Vector3 offset = new Vector3(
-            Mathf.Cos(bobCycle * frequency / 2f) * amplitude * 2f,
-            Mathf.Sin(bobCycle * frequency) * amplitude,
-            0f
-        );
-
-        cameraHolder.localPosition = startLocalPos + offset;
-    }
-
-    private void ResetPosition()
-    {
-        cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, startLocalPos, 5f * Time.deltaTime);
+        bobCycle = 0f;
+        smoothedSpeed = 0f;
     }
 }
 
