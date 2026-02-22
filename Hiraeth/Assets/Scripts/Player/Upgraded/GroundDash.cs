@@ -22,6 +22,7 @@ public class GroundDash : MonoBehaviour
 
     [Header("Visual Effects")]
     public ParticleSystem dashParticles;
+    public ParticleSystem dashShadow;
 
     public bool isDashing;
 
@@ -49,6 +50,7 @@ public class GroundDash : MonoBehaviour
         cameraBobbing.isDashing = true;
 
         dashParticles.Play();
+        dashShadow.Play();
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");

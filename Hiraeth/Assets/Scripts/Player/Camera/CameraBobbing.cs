@@ -20,7 +20,6 @@ public class CameraBobbing : MonoBehaviour
     public Movement movement;
 
     [Header("Dash Ability")]
-    [SerializeField] private float dashBobFrequency = 8f;
     [HideInInspector] public float dashBobAmount = 0f;
     private float dashBlend;
     [HideInInspector] public bool isDashing = false;
