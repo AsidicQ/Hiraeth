@@ -20,7 +20,10 @@ public class GroundDash : MonoBehaviour
     [Header("Collision Settings")]
     public float skin = 0.01f;
 
-    private bool isDashing;
+    [Header("Visual Effects")]
+    public ParticleSystem dashParticles;
+
+    public bool isDashing;
 
     void Start()
     {
@@ -44,6 +47,8 @@ public class GroundDash : MonoBehaviour
         isDashing = true;
         movement.canMove = false;
         cameraBobbing.isDashing = true;
+
+        dashParticles.Play();
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
