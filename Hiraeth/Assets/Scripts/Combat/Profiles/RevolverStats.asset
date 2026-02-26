@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponProfiles
   damage: 45
   bulletVelocity: 600
-  bulletPrefab: {fileID: 0}
-  weaponPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 8208679481922205757, guid: 8b742ca004c6b4248a8d314f19caa8b6, type: 3}
+  weaponPrefab: {fileID: 7315219153293199438, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
   weaponName: Revolver
   bulletPrefabLifeTime: 1.5
   shootingDelay: 1.2
