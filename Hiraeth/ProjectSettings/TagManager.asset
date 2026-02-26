@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - Player/Combat/Melee
+  - Enemy/Training/Dummy
+  - Enemy/Training/MovingDummy
+  - Enemy/NPC/Base
   - 
   - 
   - 
