@@ -16,7 +16,7 @@ TagManager:
   - Enemy/Training/Dummy
   - Enemy/Training/MovingDummy
   - Enemy/NPC/Base
-  - 
+  - Player/Combat/Projectile
   - 
   - 
   - 
