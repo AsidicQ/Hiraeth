@@ -18,6 +18,9 @@ public class SwordAttack : MonoBehaviour
     public float attackCooldown = 1f;
     private bool isAttacking = false;
 
+    [Header("References")]
+    public HitMarkers hitMarkers;
+
     private void Start()
     {
         animator = GetComponentInParent<Animator>();
@@ -47,9 +50,8 @@ public class SwordAttack : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            if (enemy.TryGetComponent<DummyMovement>(out DummyMovement dummyHealth))
-            {
-            }
+            hitMarkers.TriggerHitMarker();
+            Debug.Log("Hit " + enemy.name);
         }
 
         yield return new WaitForSeconds(attackCooldown);
@@ -66,5 +68,10 @@ public class SwordAttack : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, sphereRange);
+    }
+
+    public void Initialize(HitMarkers hitMarkers)
+    {
+        this.hitMarkers = hitMarkers;
     }
 }

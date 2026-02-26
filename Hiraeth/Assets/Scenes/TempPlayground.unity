@@ -10713,6 +10713,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1857851478}
     m_Modifications:
+    - target: {fileID: 1543480072839738432, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2971318878092756651, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.354727
@@ -10756,6 +10760,14 @@ PrefabInstance:
     - target: {fileID: 4304092536595264756, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
       propertyPath: m_Name
       value: Dummy_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304092536595264756, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731902157903535527, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16588,6 +16600,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1857851478}
     m_Modifications:
+    - target: {fileID: 1543480072839738432, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2971318878092756651, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8
@@ -16631,6 +16647,14 @@ PrefabInstance:
     - target: {fileID: 4304092536595264756, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
       propertyPath: m_Name
       value: Dummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304092536595264756, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731902157903535527, guid: 2d2aca2727f048643b83f3dd6e5e82f2, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17163,7 +17187,8 @@ MonoBehaviour:
   bodyDamageIndicator: {r: 1, g: 1, b: 1, a: 1}
   headshotDamageIndicator: {r: 1, g: 0, b: 0, a: 1}
   killIndicator: {r: 0, g: 0, b: 0, a: 1}
-  hitmarkerDuration: 0.5
+  hitmarkerDuration: 0.2
+  fadeDuration: 0.1
 --- !u!1 &1337345298
 GameObject:
   m_ObjectHideFlags: 0
@@ -17231,7 +17256,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 1919
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -17370,9 +17395,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4790261207237203189, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7333672432573620419, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7657701792628089141, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
       propertyPath: m_Name
       value: TrainingDummy_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657701792628089141, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17382,6 +17419,17 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 1869549963}
   m_SourcePrefab: {fileID: 100100000, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+--- !u!114 &1345438191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1842860147788412200, guid: 9891eec797d45634dbf057ab61a81d15, type: 3}
+  m_PrefabInstance: {fileID: 329211001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a9a7255a3beee4b89ffd715f1f9cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordAttack
 --- !u!1 &1375543118
 GameObject:
   m_ObjectHideFlags: 0
@@ -17771,6 +17819,7 @@ Transform:
   m_Children:
   - {fileID: 1997771251}
   - {fileID: 1299926168}
+  - {fileID: 2083027138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1586800773
@@ -18860,9 +18909,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4790261207237203189, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7333672432573620419, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7657701792628089141, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
       propertyPath: m_Name
       value: TrainingDummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657701792628089141, guid: 86aa5ffe5df5ad34fb4d35b6655360bd, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19238,6 +19299,52 @@ Transform:
   - {fileID: 94367906}
   m_Father: {fileID: 1597689132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2083027137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083027138}
+  - component: {fileID: 2083027139}
+  m_Layer: 0
+  m_Name: GeneralManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083027138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083027137}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1575499452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083027139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083027137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920600c77660578479597c8f4eee301b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Initializer
+  swordAttack: {fileID: 1345438191}
+  UI_Manager: {fileID: 1299926167}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
