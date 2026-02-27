@@ -55,7 +55,7 @@ public class Reloading : MonoBehaviour
 
         if (isReloading)
         {
-            animator.SetBool("isAimingAnim", false);
+            //animator.SetBool("isAimingAnim", false);
         }
     }
 
@@ -77,8 +77,8 @@ public class Reloading : MonoBehaviour
         shootScript.readyToShoot = false;
         handSway.enabled = false;
 
-        animator.SetTrigger("ReloadDown");
-        StartCoroutine(PlayAfterAnimation("ReloadAnim", "ReloadUpAnim"));
+        //animator.SetTrigger("ReloadDown");
+        //StartCoroutine(PlayAfterAnimation("ReloadAnim", "ReloadUpAnim"));
 
         float reloadDuration = currentAmmo > 0 ? weaponStats.reloadTime : weaponStats.reloadTimeEmpty;
         yield return new WaitForSeconds(reloadDuration);

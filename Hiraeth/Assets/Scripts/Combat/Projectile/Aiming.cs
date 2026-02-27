@@ -8,9 +8,9 @@ public class Aiming : MonoBehaviour
     public float ADS_Speed = 10f;
     public Camera mainCam;
     public Camera gunCam;
-    public float FOV_increase;
-    public float gunFOV_increase;
-    public float FOV_decrease;
+    public float defaultFOV;
+    public float adsFOV;
+    public float defaultGunFOV;
     public float FOV_speed;
     private float targetFOV;
     private float gunFOV;
@@ -43,8 +43,8 @@ public class Aiming : MonoBehaviour
         shootingFunc = GetComponentInChildren<ShootScript>();
         weaponSway = GetComponentInParent<HandSway>();
 
-        targetFOV = FOV_decrease;
-        gunFOV = FOV_decrease;
+        targetFOV = defaultFOV;
+        gunFOV = defaultGunFOV;
     }
 
     void Update()
@@ -102,8 +102,8 @@ public class Aiming : MonoBehaviour
         lookFunc.sensitivityAmount = defaultSensitivity / sensDecrease;
         movementFunc.canSprint = false;
         wasAiming = true;
-        targetFOV = FOV_increase;
-        gunFOV = gunFOV_increase;
+        targetFOV = adsFOV;
+        gunFOV = defaultGunFOV;
         crossHair.SetActive(false);
     }
 
@@ -114,8 +114,8 @@ public class Aiming : MonoBehaviour
         lookFunc.sensitivityAmount = defaultSensitivity;
         movementFunc.canSprint = true;
         wasAiming = false;
-        targetFOV = FOV_decrease;
-        gunFOV = FOV_decrease;
+        targetFOV = defaultFOV;
+        gunFOV = defaultGunFOV;
         crossHair.SetActive(true);
     }
 

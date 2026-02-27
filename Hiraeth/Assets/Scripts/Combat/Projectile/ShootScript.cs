@@ -21,7 +21,7 @@ public class ShootScript : MonoBehaviour
     public bool isAiming;
 
     [Header("References")]
-    //public WeaponRecoil Recoil;
+    public Recoil Recoil;
     public HandSway handSway;
     public Movement movementScript;
     public Reloading reloading;
@@ -31,13 +31,13 @@ public class ShootScript : MonoBehaviour
 
     public void Initialize(Movement movementScript,
         ParticleSystem muzzleFlash,
-        Camera playerCam)
-        //WeaponRecoil recoil)
+        Camera playerCam,
+        Recoil recoil)
     {
         this.movementScript = movementScript;
         this.muzzleFlash = muzzleFlash;
         this.plyrCamera = playerCam;
-        //Recoil = recoil;
+        Recoil = recoil;
     }
 
     public void ApplyWeaponData(WeaponProfiles data)
@@ -71,8 +71,8 @@ public class ShootScript : MonoBehaviour
         {
             currentBurst = weaponData.bulletsPerBurst;
             Shoot();
-            //Recoil.Recoil(isAiming);
-            //Recoil.HandleRecoilAnimation();
+            Recoil.RecoilFunction(isAiming);
+            Recoil.HandleRecoilAnimation();
         }
 
         isAiming = Input.GetKey(aimingKey);
