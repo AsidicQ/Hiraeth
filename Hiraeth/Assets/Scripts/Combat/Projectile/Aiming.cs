@@ -17,7 +17,6 @@ public class Aiming : MonoBehaviour
 
     [Header("References")]
     public WeaponProfiles weaponStats;
-    public ShootScript shootingFunc;
     public Movement movementFunc;
     public CameraMovement lookFunc;
     public HandSway weaponSway;
@@ -40,13 +39,12 @@ public class Aiming : MonoBehaviour
         weaponStartRot = transform.localRotation;
 
         mainCam = GetComponentInParent<Camera>();
-        shootingFunc = GetComponentInChildren<ShootScript>();
         weaponSway = GetComponentInParent<HandSway>();
 
         targetFOV = defaultFOV;
         gunFOV = defaultGunFOV;
     }
-
+    /*
     void Update()
     {
         if (shootingFunc.isAiming)
@@ -134,4 +132,5 @@ public class Aiming : MonoBehaviour
         defaultSpread = weaponStats.spreadIntensity;
         defaultSensitivity = lookFunc.sensitivityAmount;
     }
+    */
 }

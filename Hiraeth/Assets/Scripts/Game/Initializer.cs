@@ -6,14 +6,12 @@ public class Initializer : MonoBehaviour
 {
     [Header("Scripts")]
     public SwordAttack swordAttack;
-    public ShootScript shootScript;
     public Recoil recoil;
     public RecoilProfiles recoilProfiles;
     public Aiming aiming;
     public Movement playerMovement;
     public CameraMovement lookScript;
     public WeaponProfiles weaponStats;
-    public Reloading reloading;
 
     [Header("References")]
     public GameObject UI_Manager;
@@ -52,7 +50,6 @@ public class Initializer : MonoBehaviour
     {
         swordAttack.Initialize(UI_Manager.GetComponent<HitMarkers>());
         recoil.Initialize(recoilProfiles, weaponCamera.transform);
-        aiming.Initialize(playerMovement, lookScript, mainCamera, weaponCamera, weaponStats);
-        reloading.Initialize(ammoCounter, reloadingText);
+        //aiming.Initialize(playerMovement, lookScript, mainCamera, weaponCamera, weaponStats);
     }
 }
