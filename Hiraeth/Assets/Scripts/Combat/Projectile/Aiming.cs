@@ -10,7 +10,7 @@ public class Aiming : MonoBehaviour
     public Camera gunCam;
     public float defaultFOV;
     public float adsFOV;
-    public float defaultGunFOV;
+    public float defaultGunCameraFOV;
     public float FOV_speed;
     private float targetFOV;
     private float gunFOV;
@@ -42,12 +42,12 @@ public class Aiming : MonoBehaviour
         weaponSway = GetComponentInParent<HandSway>();
 
         targetFOV = defaultFOV;
-        gunFOV = defaultGunFOV;
+        gunFOV = defaultGunCameraFOV;
     }
-    /*
+    
     void Update()
     {
-        if (shootingFunc.isAiming)
+        if (GunBase.isAiming)
         {
             AimDownSight();
             if (!wasAiming) EnterADS();
@@ -101,7 +101,7 @@ public class Aiming : MonoBehaviour
         movementFunc.canSprint = false;
         wasAiming = true;
         targetFOV = adsFOV;
-        gunFOV = defaultGunFOV;
+        gunFOV = defaultGunCameraFOV;
         crossHair.SetActive(false);
     }
 
@@ -113,7 +113,7 @@ public class Aiming : MonoBehaviour
         movementFunc.canSprint = true;
         wasAiming = false;
         targetFOV = defaultFOV;
-        gunFOV = defaultGunFOV;
+        gunFOV = defaultGunCameraFOV;
         crossHair.SetActive(true);
     }
 
@@ -132,5 +132,5 @@ public class Aiming : MonoBehaviour
         defaultSpread = weaponStats.spreadIntensity;
         defaultSensitivity = lookFunc.sensitivityAmount;
     }
-    */
+    
 }

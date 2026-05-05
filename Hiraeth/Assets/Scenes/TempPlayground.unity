@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 6b14f488bdbb00647a52ed3fbf03917b
+  m_OcclusionCullingData: {fileID: 36300000, guid: 573231fe9dd57474498da062a1abdc28, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -16687,6 +16687,14 @@ PrefabInstance:
       propertyPath: plyrCam
       value: 
       objectReference: {fileID: 1337345301}
+    - target: {fileID: 6836812962743322762, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
+      propertyPath: recoil
+      value: 
+      objectReference: {fileID: 1183245617}
+    - target: {fileID: 6836812962743322762, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
     - target: {fileID: 7315219153293199438, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
       propertyPath: m_Name
       value: Revolver
@@ -16736,17 +16744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095d32c5212628c4c91eb4e688cddb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Aiming
---- !u!114 &1183245616 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-  m_PrefabInstance: {fileID: 1183245612}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 577394fd83b4ec14c8765cd83ccd4e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShootScript
 --- !u!114 &1183245617 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6798828825124313983, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
@@ -17998,7 +17995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1712914856
 Transform:
   m_ObjectHideFlags: 0
@@ -18878,7 +18875,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980842500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2caf232969a9f464ebe4fbf7aae5f47a, type: 2}
   m_CullingMode: 0
@@ -19662,7 +19659,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Initializer
   swordAttack: {fileID: 1842860147462482257}
-  shootScript: {fileID: 1183245616}
   recoil: {fileID: 1183245617}
   recoilProfiles: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
   aiming: {fileID: 1183245614}
@@ -19704,7 +19700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1713504682682614230, guid: e835959722b6a5d4eb25c1f353b60b4c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3695008117385891332, guid: e835959722b6a5d4eb25c1f353b60b4c, type: 3}
       propertyPath: m_LocalPosition.x

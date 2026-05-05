@@ -1,50 +1,64 @@
 using UnityEngine;
+using System.Collections;
 
-public abstract class GunBase : IGun
+[RequireComponent(typeof(Reloading))]
+public abstract class GunBase : MonoBehaviour, IGun, IReload
 {
     [SerializeField] protected WeaponProfiles weaponData;
     public WeaponProfiles WeaponData => weaponData;
-
     [SerializeField] protected Recoil recoil;
     public Recoil Recoil => recoil;
 
     public Movement movement;
     public HandSway handSway;
+    public Reloading reloading;
+    public Recoil weaponRecoil;
 
+    public int currentAmmo;
+    public int reserveAmmo;
+    public int maxAmmo;
+
+    [Header("Injected Dependencies")]
+    public ParticleSystem muzzleFlash;
     public Transform bulletSpawnPoint;
     public Camera playerCamera;
 
-    private int currentBurst;
+    public int currentBurst;
     public bool isShooting, readyToShoot = true;
-    private bool allowReset = true;
+    public bool allowReset = true;
+
+    public static bool isAiming = false;
+
+    public bool isReloading;
+
+    public void Start()
+    {
+        reloading = GetComponent<Reloading>();
+        weaponRecoil = GetComponent<Recoil>();
+        reloading.UpdateAmmo();
+        muzzleFlash = GetComponentInChildren<ParticleSystem>();
+    }
+
+    public void ApplyWeaponData(WeaponProfiles weaponData)
+    {
+        this.weaponData = weaponData;
+
+        currentAmmo = weaponData.currentAmmo;
+        reserveAmmo = weaponData.reserveAmmo;
+        maxAmmo = weaponData.maxAmmo;
+        reloading.UpdateAmmo();
+    }
+
+    public void AddAmmo(int amount)
+    {
+        reserveAmmo += amount;
+
+        reloading.UpdateAmmo();
+    }
 
     public abstract void Shoot();
 
-    public Vector3 CalculateSpread()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(100);
-        }
-
-        Vector3 direction = (targetPoint - bulletSpawnPoint.position).normalized;
-        float x = Random.Range(-weaponData.spreadIntensity, weaponData.spreadIntensity);
-        float y = Random.Range(-weaponData.spreadIntensity, weaponData.spreadIntensity);
-
-        Vector3 spread = Camera.main.transform.right * x + Camera.main.transform.up * y;
-
-        Vector3 finalDirection = (direction + spread).normalized;
-
-        return finalDirection;
-    }
+    public abstract Vector3 CalculateSpread();
 
     public void ResetShot()
     {
@@ -52,15 +66,53 @@ public abstract class GunBase : IGun
         allowReset = true;
     }
 
-    public void Initialize(Movement movementScript,
-        ParticleSystem muzzleFlash,
-        Camera playerCam,
-        Recoil recoil)
+    public void Initialize(WeaponContext weaponContext)
     {
-        this.movement = movementScript;
-        this.playerCamera = playerCam;
-        this.recoil = recoil;
+        this.movement = weaponContext.movement;
+        this.handSway = weaponContext.handSway;
+        this.playerCamera = weaponContext.playerCamera;
     }
+
+    public IEnumerator Reload()
+    {
+        Reloading reloadComponent = GetComponent<Reloading>();
+
+        if (isReloading || currentAmmo == maxAmmo || reserveAmmo <= 0)
+            yield break;
+
+        isReloading = true;
+
+        reloadComponent.reloadingText.enabled = true;
+
+        if (handSway != null)
+            handSway.enabled = false;
+
+        reloadComponent.animator.SetTrigger("ReloadDown");
+        StartCoroutine(reloadComponent.PlayAfterAnimation("ReloadAnim", "ReloadUpAnim"));
+
+        float reloadDuration = currentAmmo > 0 ? weaponData.reloadTime : weaponData.reloadTimeEmpty;
+        yield return new WaitForSeconds(reloadDuration);
+
+        if (handSway != null)
+            handSway.enabled = true;
+
+        int ammoToReload = Mathf.Min(maxAmmo - currentAmmo, reserveAmmo);
+        currentAmmo += ammoToReload;
+        reserveAmmo -= ammoToReload;
+
+        isReloading = false;
+
+        reloadComponent.reloadingText.enabled = false;
+
+        reloadComponent.UpdateAmmo();
+    }
+}
+
+public class WeaponContext
+{
+    public Movement movement;
+    public HandSway handSway;
+    public Camera playerCamera;
 }
 
 public interface IGun
@@ -78,5 +130,5 @@ public interface IAim
 
 public interface IReload
 {
-    public void Reload();
+    public IEnumerator Reload();
 }

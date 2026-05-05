@@ -45,7 +45,7 @@ public class Movement : MonoBehaviour
 
     Vector3 moveDirection;
     Vector3 currentPos;
-    public bool canMove;
+    public static bool canMove = true;
 
     public Rigidbody rb;
 

@@ -46,7 +46,7 @@ public class GroundDash : MonoBehaviour
             yield break;
 
         isDashing = true;
-        movement.canMove = false;
+        Movement.canMove = false;
         cameraBobbing.isDashing = true;
 
         dashParticles.Play();
@@ -131,7 +131,7 @@ public class GroundDash : MonoBehaviour
 
         cameraBobbing.isDashing = false;
         cameraBobbing.ResetBobCycle();
-        movement.canMove = true;
+        Movement.canMove = true;
         isDashing = false;
         StartCoroutine(FadeOutDashBob());
     }

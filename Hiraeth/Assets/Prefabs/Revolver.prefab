@@ -4936,9 +4936,9 @@ GameObject:
   m_Component:
   - component: {fileID: 563530368264447872}
   - component: {fileID: 6798828825124313983}
-  - component: {fileID: 8004566402462642414}
-  - component: {fileID: 1515541578635498217}
+  - component: {fileID: 6836812962743322762}
   - component: {fileID: 1396343539654020093}
+  - component: {fileID: 7183503078075413897}
   m_Layer: 11
   m_Name: Revolver
   m_TagString: Untagged
@@ -4981,7 +4981,7 @@ MonoBehaviour:
   hipfireRecoilMultiplier: 0.4
   adsRecoilMultiplier: 0.1
   plyrCam: {fileID: 0}
---- !u!114 &8004566402462642414
+--- !u!114 &6836812962743322762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4990,47 +4990,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7315219153293199438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 577394fd83b4ec14c8765cd83ccd4e69, type: 3}
+  m_Script: {fileID: 11500000, guid: af3fb8584f1292948aa321955258abb5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShootScript
+  m_EditorClassIdentifier: Assembly-CSharp::GunShoot
   weaponData: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-  bulletSpawnPoint: {fileID: 7057183125343227067}
+  recoil: {fileID: 6798828825124313983}
+  movement: {fileID: 0}
+  handSway: {fileID: 0}
+  reloading: {fileID: 0}
+  weaponRecoil: {fileID: 0}
+  currentAmmo: 0
+  reserveAmmo: 0
+  maxAmmo: 0
   muzzleFlash: {fileID: 1967941228908687921}
-  plyrCamera: {fileID: 0}
-  aimingKey: 324
-  shootingKey: 323
+  bulletSpawnPoint: {fileID: 7057183125343227067}
+  playerCamera: {fileID: 0}
+  currentBurst: 0
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
   isReloading: 0
-  isAiming: 0
-  Recoil: {fileID: 0}
-  handSway: {fileID: 0}
-  movementScript: {fileID: 0}
-  reloading: {fileID: 1515541578635498217}
-  animator: {fileID: 0}
---- !u!114 &1515541578635498217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7315219153293199438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a03dbb565b09d4347a898302e2453ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Reloading
-  ammoCounter: {fileID: 0}
-  reloadingText: {fileID: 0}
-  currentAmmo: 0
-  reserveAmmo: 0
-  maxAmmo: 0
-  isReloading: 0
-  reloadKey: 114
-  weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-  handSway: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!114 &1396343539654020093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5048,17 +5027,33 @@ MonoBehaviour:
   ADS_Speed: 10
   mainCam: {fileID: 0}
   gunCam: {fileID: 0}
-  defaultFOV: 0
-  adsFOV: 0
-  defaultGunFOV: 0
-  FOV_speed: 0
+  defaultFOV: 60
+  adsFOV: 45
+  defaultGunCameraFOV: 0
+  FOV_speed: 0.75
   weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-  shootingFunc: {fileID: 8004566402462642414}
   movementFunc: {fileID: 0}
   lookFunc: {fileID: 0}
   weaponSway: {fileID: 0}
-  sightTarget: {fileID: 0}
+  sightTarget: {fileID: 229031428885856806}
   crossHair: {fileID: 0}
+--- !u!114 &7183503078075413897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7315219153293199438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929ee97f615834e428d107fe83a57012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Reloading
+  ammoCounter: {fileID: 0}
+  reloadingText: {fileID: 0}
+  reloadKey: 114
+  weaponSway: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &7522722971178875554
 GameObject:
   m_ObjectHideFlags: 0

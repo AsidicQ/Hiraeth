@@ -4,19 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class Initializer : MonoBehaviour
 {
-    [Header("Scripts")]
+    [Header("Weapon Scripts")]
     public SwordAttack swordAttack;
     public Recoil recoil;
     public RecoilProfiles recoilProfiles;
     public Aiming aiming;
+    public WeaponProfiles weaponStats;
+
+    [Header("Player Scripts")]
     public Movement playerMovement;
     public CameraMovement lookScript;
-    public WeaponProfiles weaponStats;
+    public HandSway handSway;
 
     [Header("References")]
     public GameObject UI_Manager;
 
     [Header("Transforms")]
+    public Transform mainCameraTransform;
 
     [Header("Cameras")]
     public Camera mainCamera;
@@ -50,6 +54,5 @@ public class Initializer : MonoBehaviour
     {
         swordAttack.Initialize(UI_Manager.GetComponent<HitMarkers>());
         recoil.Initialize(recoilProfiles, weaponCamera.transform);
-        //aiming.Initialize(playerMovement, lookScript, mainCamera, weaponCamera, weaponStats);
     }
 }
