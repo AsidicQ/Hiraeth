@@ -44,7 +44,7 @@ public class Reloading : MonoBehaviour
         if (gunBase == null) return;
 
         if (Input.GetKeyDown(reloadKey) && gunBase.currentAmmo < gunBase.maxAmmo && gunBase.reserveAmmo > 0
-            && !gunBase.isReloading && !GunBase.isAiming)
+            && !gunBase.isReloading)
             StartCoroutine(gunBase.Reload());
 
         if (gunBase.isReloading)

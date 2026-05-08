@@ -53,11 +53,18 @@ public class WeaponEquipManager : MonoBehaviour
         currentWeaponObject = weaponFactory.CreateWeapon(newWeapon, weaponRecoilStats, weaponParent, spawnOffset);
 
         gunBase = currentWeaponObject.GetComponent<GunBase>();
-        currentWeaponObject.transform.localPosition = weaponPosition;
-        currentReloading = currentWeaponObject.GetComponent<Reloading>();
         currentWeapon = newWeapon;
         currentRecoil = weaponRecoilStats;
-        currentWeaponObject.layer = LayerMask.NameToLayer("Hands/Weapon");
+        
+        int projectileLayer = LayerMask.NameToLayer("Player/Combat/Projectile");
+
+        if (projectileLayer == -1)
+        {
+            Debug.LogError("Layer 'Player/Combat/Projectile' not found!");
+            return;
+        }
+
+        SetLayerRecursively(currentWeaponObject, LayerMask.NameToLayer("Player/Combat/Projectile"));
 
         if (currentWeaponObject == null)
         {
@@ -87,18 +94,16 @@ public class WeaponEquipManager : MonoBehaviour
         if (reloading != null)
         {
             reloading.Initialize(initializer.ammoCounter, initializer.reloadingText);
+            currentReloading = reloading;
         }
+    }
 
-        var aimingScript = currentWeaponObject.GetComponent<Aiming>();
-        if (aimingScript != null)
+    void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
         {
-            aimingScript.Initialize(
-                initializer.playerMovement,
-                initializer.lookScript,
-                initializer.mainCamera,
-                initializer.weaponCamera,
-                newWeapon
-            );
+            SetLayerRecursively(child.gameObject, layer);
         }
     }
 }

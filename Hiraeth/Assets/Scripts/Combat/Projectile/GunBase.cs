@@ -12,14 +12,12 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
     public Movement movement;
     public HandSway handSway;
     public Reloading reloading;
-    public Recoil weaponRecoil;
 
     public int currentAmmo;
     public int reserveAmmo;
     public int maxAmmo;
 
     [Header("Injected Dependencies")]
-    public ParticleSystem muzzleFlash;
     public Transform bulletSpawnPoint;
     public Camera playerCamera;
 
@@ -27,16 +25,13 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
     public bool isShooting, readyToShoot = true;
     public bool allowReset = true;
 
-    public static bool isAiming = false;
-
     public bool isReloading;
 
     public void Start()
     {
         reloading = GetComponent<Reloading>();
-        weaponRecoil = GetComponent<Recoil>();
+        recoil = GetComponent<Recoil>();
         reloading.UpdateAmmo();
-        muzzleFlash = GetComponentInChildren<ParticleSystem>();
     }
 
     public void ApplyWeaponData(WeaponProfiles weaponData)
@@ -71,11 +66,13 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
         this.movement = weaponContext.movement;
         this.handSway = weaponContext.handSway;
         this.playerCamera = weaponContext.playerCamera;
+
+        Debug.Log("Initialize called");
     }
 
     public IEnumerator Reload()
     {
-        Reloading reloadComponent = GetComponent<Reloading>();
+        Reloading reloadComponent = reloading;
 
         if (isReloading || currentAmmo == maxAmmo || reserveAmmo <= 0)
             yield break;
@@ -120,12 +117,6 @@ public interface IGun
     void Shoot();
     Vector3 CalculateSpread();
     void ResetShot();
-}
-
-public interface IAim
-{
-    public void AimDownSight();
-    public void ExitAimDownSight();
 }
 
 public interface IReload

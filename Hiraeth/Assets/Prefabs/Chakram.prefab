@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4299771768587423190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4465576252075783024}
+  - component: {fileID: 3598017712587200511}
+  - component: {fileID: 5557338205355505262}
+  - component: {fileID: 2304397159668333764}
+  m_Layer: 11
+  m_Name: Chakram
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4465576252075783024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.29429868, y: -0.44013047, z: -0.23782744, w: -0.8143167}
+  m_LocalPosition: {x: 0.0018597268, y: -0.0003605166, z: 0.002968513}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3517455551583305089}
+  - {fileID: 1256902357624022602}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -43.524, y: 3292.705, z: 10.19}
+--- !u!114 &3598017712587200511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929ee97f615834e428d107fe83a57012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Reloading
+  ammoCounter: {fileID: 0}
+  reloadingText: {fileID: 0}
+  reloadKey: 114
+  weaponSway: {fileID: 0}
+  animator: {fileID: 0}
+--- !u!114 &5557338205355505262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3fb8584f1292948aa321955258abb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chakram
+  weaponData: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
+  recoil: {fileID: 2304397159668333764}
+  movement: {fileID: 0}
+  handSway: {fileID: 0}
+  reloading: {fileID: 3598017712587200511}
+  currentAmmo: 0
+  reserveAmmo: 0
+  maxAmmo: 0
+  bulletSpawnPoint: {fileID: 1256902357624022602}
+  playerCamera: {fileID: 0}
+  currentBurst: 0
+  isShooting: 0
+  readyToShoot: 1
+  allowReset: 1
+  isReloading: 0
+--- !u!114 &2304397159668333764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437ba894908ccb945afdf095e91f8949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Recoil
+  weaponRecoil: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
+  hipfireRecoilMultiplier: 0
+  adsRecoilMultiplier: 0
+  plyrCam: {fileID: 0}
+--- !u!1 &8880219630882712034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256902357624022602}
+  m_Layer: 11
+  m_Name: bulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1256902357624022602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8880219630882712034}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.141, y: 0, z: 0.0747}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4465576252075783024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7779475654180936182
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4465576252075783024}
+    m_Modifications:
+    - target: {fileID: 5795407589716557517, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_Name
+      value: PP_Theme_05_Chakram_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795407589716557517, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+--- !u!4 &3517455551583305089 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6568144724263707767, guid: 9214597ca565f5840be2b48f71eb9966, type: 3}
+  m_PrefabInstance: {fileID: 7779475654180936182}
+  m_PrefabAsset: {fileID: 0}

@@ -16174,11 +16174,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!4 &985037234 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 229031428885856806, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-  m_PrefabInstance: {fileID: 1183245612}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1030732953
 GameObject:
   m_ObjectHideFlags: 0
@@ -16551,210 +16546,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084664804}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1183245612
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1712914856}
-    m_Modifications:
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: adsFOV
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: gunCam
-      value: 
-      objectReference: {fileID: 1285792545}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 1337345300}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: lookFunc
-      value: 
-      objectReference: {fileID: 1337345303}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: FOV_speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: crossHair
-      value: 
-      objectReference: {fileID: 1983659603}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: defaultFOV
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: weaponSway
-      value: 
-      objectReference: {fileID: 1980842502}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: sightTarget
-      value: 
-      objectReference: {fileID: 985037234}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: movementFunc
-      value: 
-      objectReference: {fileID: 1799647275}
-    - target: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: defaultGunFOV
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: maxAmmo
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1980842503}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: handSway
-      value: 
-      objectReference: {fileID: 1980842502}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: ammoCounter
-      value: 
-      objectReference: {fileID: 1817029911}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: currentAmmo
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: reserveAmmo
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1515541578635498217, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: reloadingText
-      value: 
-      objectReference: {fileID: 2062920138}
-    - target: {fileID: 1967941228908687921, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1967941228908687921, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: lengthInSec
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1967941228908687921, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6798828825124313983, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: plyrCam
-      value: 
-      objectReference: {fileID: 1337345301}
-    - target: {fileID: 6836812962743322762, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: recoil
-      value: 
-      objectReference: {fileID: 1183245617}
-    - target: {fileID: 6836812962743322762, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: weaponData
-      value: 
-      objectReference: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-    - target: {fileID: 7315219153293199438, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_Name
-      value: Revolver
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: Recoil
-      value: 
-      objectReference: {fileID: 1183245617}
-    - target: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1980842503}
-    - target: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: handSway
-      value: 
-      objectReference: {fileID: 1980842502}
-    - target: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: plyrCamera
-      value: 
-      objectReference: {fileID: 1337345300}
-    - target: {fileID: 8004566402462642414, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: movementScript
-      value: 
-      objectReference: {fileID: 1799647275}
-    - target: {fileID: 9210293533373229368, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
---- !u!4 &1183245613 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 563530368264447872, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-  m_PrefabInstance: {fileID: 1183245612}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1183245614 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1396343539654020093, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-  m_PrefabInstance: {fileID: 1183245612}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 095d32c5212628c4c91eb4e688cddb06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Aiming
---- !u!114 &1183245617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6798828825124313983, guid: 81d071b762ed7d14ea3d075f96fdf4b3, type: 3}
-  m_PrefabInstance: {fileID: 1183245612}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437ba894908ccb945afdf095e91f8949, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Recoil
 --- !u!1 &1268216050
 GameObject:
   m_ObjectHideFlags: 0
@@ -18008,8 +17799,7 @@ Transform:
   m_LocalPosition: {x: -0.1, y: 0.1, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1183245613}
+  m_Children: []
   m_Father: {fileID: 1434252792}
   m_LocalEulerAnglesHint: {x: 0, y: 2, z: 0}
 --- !u!1 &1799647273
@@ -18021,6 +17811,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1799647274}
+  - component: {fileID: 1799647282}
   - component: {fileID: 1799647281}
   - component: {fileID: 1799647279}
   - component: {fileID: 1799647278}
@@ -18085,7 +17876,6 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   orientation: {fileID: 1375543119}
-  canMove: 0
   rb: {fileID: 0}
   state: 0
 --- !u!54 &1799647276
@@ -18269,6 +18059,24 @@ MonoBehaviour:
   staminaIncrease: 5
   dashIncrease: 15
   playerCamera: {fileID: 1337345300}
+--- !u!114 &1799647282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799647273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c684c20fc85b6438b0578503990084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponEquipManager
+  weaponParent: {fileID: 1712914856}
+  startingWeapon: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
+  startingRecoil: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
+  gunBase: {fileID: 0}
+  initializer: {fileID: 2083027139}
+  spawnOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1800853061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7725550455073907413, guid: fc5a676d2c90b3d4f8a22e369c35950d, type: 3}
@@ -19659,13 +19467,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Initializer
   swordAttack: {fileID: 1842860147462482257}
-  recoil: {fileID: 1183245617}
+  recoil: {fileID: 0}
   recoilProfiles: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
-  aiming: {fileID: 1183245614}
+  aiming: {fileID: 0}
+  weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
   playerMovement: {fileID: 1799647275}
   lookScript: {fileID: 1337345303}
-  weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
+  handSway: {fileID: 1980842502}
   UI_Manager: {fileID: 1299926167}
+  mainCameraTransform: {fileID: 1337345301}
   mainCamera: {fileID: 1337345300}
   weaponCamera: {fileID: 1285792545}
   ammoCounter: {fileID: 1817029911}
