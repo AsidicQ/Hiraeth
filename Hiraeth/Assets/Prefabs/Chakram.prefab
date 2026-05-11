@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4465576252075783024}
   - component: {fileID: 3598017712587200511}
   - component: {fileID: 5557338205355505262}
-  - component: {fileID: 2304397159668333764}
   m_Layer: 11
   m_Name: Chakram
   m_TagString: Untagged
@@ -66,7 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chakram
   weaponData: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-  recoil: {fileID: 2304397159668333764}
   movement: {fileID: 0}
   handSway: {fileID: 0}
   reloading: {fileID: 3598017712587200511}
@@ -79,23 +77,8 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
+  singleShotDelayFloat: 0.5
   isReloading: 0
---- !u!114 &2304397159668333764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4299771768587423190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437ba894908ccb945afdf095e91f8949, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Recoil
-  weaponRecoil: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
-  hipfireRecoilMultiplier: 0
-  adsRecoilMultiplier: 0
-  plyrCam: {fileID: 0}
 --- !u!1 &8880219630882712034
 GameObject:
   m_ObjectHideFlags: 0

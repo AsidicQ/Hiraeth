@@ -6,8 +6,6 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
 {
     [SerializeField] protected WeaponProfiles weaponData;
     public WeaponProfiles WeaponData => weaponData;
-    [SerializeField] protected Recoil recoil;
-    public Recoil Recoil => recoil;
 
     public Movement movement;
     public HandSway handSway;
@@ -25,12 +23,15 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
     public bool isShooting, readyToShoot = true;
     public bool allowReset = true;
 
+    public bool isHolding;
+    public bool autoFireActivate;
+    public float holdTimer;
+
     public bool isReloading;
 
     public void Start()
     {
         reloading = GetComponent<Reloading>();
-        recoil = GetComponent<Recoil>();
         reloading.UpdateAmmo();
     }
 

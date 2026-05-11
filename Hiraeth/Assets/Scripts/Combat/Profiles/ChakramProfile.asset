@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: ChakramProfile
   m_EditorClassIdentifier: Assembly-CSharp::WeaponProfiles
   damage: 45
-  bulletVelocity: 650
+  bulletVelocity: 12
   bulletPrefab: {fileID: 8208679481922205757, guid: 8b742ca004c6b4248a8d314f19caa8b6, type: 3}
   weaponPrefab: {fileID: 4299771768587423190, guid: 1cf498ce6688f7d489196a35d404c2f7, type: 3}
   weaponName: Chakram
   bulletPrefabLifeTime: 2
-  shootingDelay: 0.9
-  spreadIntensity: 0.03
-  shootingMode: 0
+  shootingDelay: 0.2
+  spreadIntensity: 0.01
+  shootingMode: 2
   bulletsPerBurst: 0
-  currentAmmo: 5
-  maxAmmo: 5
-  reserveAmmo: 5
+  currentAmmo: 18
+  maxAmmo: 18
+  reserveAmmo: 25
   reloadTime: 1.5
   reloadTimeEmpty: 3
+  singleShotDelayFloat: 0.5
+  autoFireDelay: 0.08
+  holdThreshold: 0.2
   animatorController: {fileID: 0}

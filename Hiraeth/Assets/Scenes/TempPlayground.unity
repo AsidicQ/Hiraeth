@@ -17316,12 +17316,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
   enable: 1
-  walkAmplitude: 0.03
-  runAmplitude: 0.1
-  walkFrequency: 2
-  runFrequency: 4.5
+  walkAmplitude: 0.05
+  runAmplitude: 0.09
+  walkFrequency: 3.5
+  runFrequency: 5.5
+  tiltAmount: 1.2
+  tiltSpeed: 8
   toggleSpeed: 0.1
-  speedSmooth: 5
+  cameraReturnSpeed: 12
+  speedSmooth: 10
   cameraHolder: {fileID: 633639384}
   controller: {fileID: 1799647276}
   movement: {fileID: 1799647275}
@@ -18073,7 +18076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponEquipManager
   weaponParent: {fileID: 1712914856}
   startingWeapon: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
-  startingRecoil: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
+  startingRecoil: {fileID: 0}
   gunBase: {fileID: 0}
   initializer: {fileID: 2083027139}
   spawnOffset: {x: 0, y: 0, z: 0}
@@ -19467,9 +19470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Initializer
   swordAttack: {fileID: 1842860147462482257}
-  recoil: {fileID: 0}
-  recoilProfiles: {fileID: 11400000, guid: 5cdb4a4e824a4944aa6e8ec4f496adb1, type: 2}
-  aiming: {fileID: 0}
+  recoilProfiles: {fileID: 0}
   weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
   playerMovement: {fileID: 1799647275}
   lookScript: {fileID: 1337345303}

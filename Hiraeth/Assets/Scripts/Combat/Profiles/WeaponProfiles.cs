@@ -28,6 +28,11 @@ public class WeaponProfiles : ScriptableObject
     public float reloadTime;
     public float reloadTimeEmpty;
 
+    [Header("Single Shot Delay")]
+    public float singleShotDelayFloat;
+    public float autoFireDelay = 0.08f;
+    public float holdThreshold = 0.2f;
+
     [Header("Animations")]
     public RuntimeAnimatorController animatorController;
 }

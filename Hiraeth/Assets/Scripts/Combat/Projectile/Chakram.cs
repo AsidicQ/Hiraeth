@@ -10,31 +10,66 @@ public class Chakram : GunBase
     private void HandleInput()
     {
         if (PlayerHealth.isDead) return;
+        if (PauseMenu.isPaused) return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (readyToShoot && currentAmmo > 0)
+            isHolding = true;
+            autoFireActivate = false;
+            holdTimer = 0;
+
+            TryShoot(weaponData.shootingDelay + weaponData.singleShotDelayFloat);
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0) && isHolding)
+        {
+            holdTimer += Time.deltaTime;
+
+            if (holdTimer > weaponData.holdThreshold)
             {
-                Shoot();
+                autoFireActivate = true;
+            }
+
+            if (autoFireActivate && readyToShoot)
+            {
+                TryShoot(weaponData.shootingDelay);
             }
         }
 
-        if (PauseMenu.isPaused) return;
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            isHolding = false;
+            autoFireActivate = false;
+            holdTimer = 0;
+        }
+    }
+
+    public void TryShoot(float delay)
+    {
+        if (!readyToShoot || currentAmmo <= 0) return;
+
+        readyToShoot = false;
+
+        Shoot();
+
+        Invoke("ResetShot", delay);
     }
 
     public override void Shoot()
     {
         readyToShoot = false;
+        currentAmmo--;
+        reloading.UpdateAmmo();
 
         Vector3 shootingDirection = CalculateSpread().normalized;
 
         GameObject bullet = Instantiate(weaponData.bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * weaponData.bulletVelocity, ForceMode.Force);
+        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * weaponData.bulletVelocity * 2, ForceMode.Force);
         bullet.transform.forward = shootingDirection;
 
         if (allowReset)
         {
-            Invoke("ResetShot", weaponData.shootingDelay);
+            
             allowReset = false;
         }
 

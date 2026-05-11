@@ -11,7 +11,6 @@ public class WeaponEquipManager : MonoBehaviour
     public Initializer initializer;
 
     public WeaponProfiles currentWeapon { get; private set; }
-    public RecoilProfiles currentRecoil { get; private set; }
     public Reloading currentReloading { get; private set; }
 
     public Vector3 spawnOffset;
@@ -26,13 +25,12 @@ public class WeaponEquipManager : MonoBehaviour
         if (startingWeapon != null)
         {
             currentWeapon = startingWeapon;
-            currentRecoil = startingRecoil;
 
-            EquipWeapon(currentWeapon, currentRecoil, spawnOffset);
+            EquipWeapon(currentWeapon, spawnOffset);
         }
     }
 
-    public void EquipWeapon(WeaponProfiles newWeapon, RecoilProfiles weaponRecoilStats, Vector3 weaponPosition)
+    public void EquipWeapon(WeaponProfiles newWeapon, Vector3 weaponPosition)
     {
         if (newWeapon == null) return;
 
@@ -50,11 +48,10 @@ public class WeaponEquipManager : MonoBehaviour
         if (currentWeaponObject != null)
             Destroy(currentWeaponObject);
 
-        currentWeaponObject = weaponFactory.CreateWeapon(newWeapon, weaponRecoilStats, weaponParent, spawnOffset);
+        currentWeaponObject = weaponFactory.CreateWeapon(newWeapon, weaponParent, spawnOffset);
 
         gunBase = currentWeaponObject.GetComponent<GunBase>();
         currentWeapon = newWeapon;
-        currentRecoil = weaponRecoilStats;
         
         int projectileLayer = LayerMask.NameToLayer("Player/Combat/Projectile");
 
@@ -70,12 +67,6 @@ public class WeaponEquipManager : MonoBehaviour
         {
             Debug.LogError("WeaponFactory failed to create weapon!");
             return;
-        }
-
-        var weaponRecoil = currentWeaponObject.GetComponent<Recoil>();
-        if (weaponRecoil != null)
-        {
-            weaponRecoil.Initialize(weaponRecoilStats, initializer.weaponCamera.transform);
         }
 
         if (gunBase != null)
