@@ -1,0 +1,65 @@
+using UnityEngine;
+using System.Collections;
+
+public class ChakramMelee : MonoBehaviour
+{
+    [Header("Attack Settings")]
+    public float sphereRange;
+    public int attackDamage;
+    public LayerMask enemyLayer;
+    public Transform attackPoint;
+
+    [Header("Animations")]
+    private Animator animator;
+    private int randomAttackIndex;
+    public float attackCooldown = 1f;
+    private bool isAttacking = false;
+
+    [Header("References")]
+    public HitMarkers hitMarkers;
+
+    private void Start()
+    {
+        animator = GetComponentInParent<Animator>();
+    }
+
+    public void RandomiseAnimation()
+    {
+        randomAttackIndex = Random.Range(0, 2);
+    }
+
+    public IEnumerator MeleeAttack()
+    {
+        isAttacking = true;
+        animator.SetTrigger("Attack");
+        animator.SetInteger("RandomAttackIndex", randomAttackIndex);
+
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, sphereRange, enemyLayer);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+            hitMarkers.TriggerHitMarker();
+            Debug.Log("Hit " + enemy.name);
+        }
+
+        yield return new WaitForSeconds(attackCooldown);
+
+        isAttacking = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, sphereRange);
+    }
+
+    public void Initialize(HitMarkers hitMarkers)
+    {
+        this.hitMarkers = hitMarkers;
+    }
+}

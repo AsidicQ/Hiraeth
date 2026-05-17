@@ -7,6 +7,8 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
     [SerializeField] protected WeaponProfiles weaponData;
     public WeaponProfiles WeaponData => weaponData;
 
+    public ChakramMelee chakramMelee;
+
     public Movement movement;
     public HandSway handSway;
     public Reloading reloading;
@@ -32,6 +34,7 @@ public abstract class GunBase : MonoBehaviour, IGun, IReload
     public void Start()
     {
         reloading = GetComponent<Reloading>();
+        chakramMelee = GetComponent<ChakramMelee>();
         reloading.UpdateAmmo();
     }
 

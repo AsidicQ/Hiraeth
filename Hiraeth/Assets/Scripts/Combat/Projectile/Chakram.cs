@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Chakram : GunBase
 {
+    public float meleeDetectionRange = 3f;
+
     private void Update()
     {
         HandleInput();
@@ -12,7 +14,14 @@ public class Chakram : GunBase
         if (PlayerHealth.isDead) return;
         if (PauseMenu.isPaused) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && MeleeDetection.canMelee)
+        {
+            chakramMelee.RandomiseAnimation();
+            StartCoroutine(chakramMelee.MeleeAttack());
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !MeleeDetection.canMelee)
         {
             isHolding = true;
             autoFireActivate = false;
@@ -21,7 +30,7 @@ public class Chakram : GunBase
             TryShoot(weaponData.shootingDelay + weaponData.singleShotDelayFloat);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && isHolding)
+        if (Input.GetKey(KeyCode.Mouse0) && isHolding && !MeleeDetection.canMelee)
         {
             holdTimer += Time.deltaTime;
 
@@ -36,7 +45,7 @@ public class Chakram : GunBase
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.Mouse0) && !MeleeDetection.canMelee)
         {
             isHolding = false;
             autoFireActivate = false;

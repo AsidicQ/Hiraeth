@@ -19470,7 +19470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Initializer
   swordAttack: {fileID: 1842860147462482257}
-  recoilProfiles: {fileID: 0}
+  chakramMelee: {fileID: 79135340365946568, guid: 1cf498ce6688f7d489196a35d404c2f7, type: 3}
   weaponStats: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
   playerMovement: {fileID: 1799647275}
   lookScript: {fileID: 1337345303}

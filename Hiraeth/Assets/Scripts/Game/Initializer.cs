@@ -6,7 +6,8 @@ public class Initializer : MonoBehaviour
 {
     [Header("Weapon Scripts")]
     public SwordAttack swordAttack;
-    public RecoilProfiles recoilProfiles;
+    public ChakramMelee chakramMelee;
+    //public RecoilProfiles recoilProfiles;
     public WeaponProfiles weaponStats;
 
     [Header("Player Scripts")]
@@ -51,5 +52,6 @@ public class Initializer : MonoBehaviour
     void BindAll()
     {
         swordAttack.Initialize(UI_Manager.GetComponent<HitMarkers>());
+        chakramMelee.Initialize(UI_Manager.GetComponent<HitMarkers>());
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4465576252075783024}
   - component: {fileID: 3598017712587200511}
   - component: {fileID: 5557338205355505262}
+  - component: {fileID: 6346313135874310356}
+  - component: {fileID: 79135340365946568}
   m_Layer: 11
   m_Name: Chakram
   m_TagString: Untagged
@@ -65,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chakram
   weaponData: {fileID: 11400000, guid: ada58ae278088094a903d63aa8f885a2, type: 2}
+  chakramMelee: {fileID: 0}
   movement: {fileID: 0}
   handSway: {fileID: 0}
   reloading: {fileID: 3598017712587200511}
@@ -77,8 +80,46 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 1
   allowReset: 1
-  singleShotDelayFloat: 0.5
+  isHolding: 0
+  autoFireActivate: 0
+  holdTimer: 0
   isReloading: 0
+  meleeDetectionRange: 3
+--- !u!114 &6346313135874310356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a1540f82d5f3248b72882cfc105c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeDetection
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1792
+--- !u!114 &79135340365946568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299771768587423190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f7c3057677e2c40ab0b522e1a10ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChakramMelee
+  sphereRange: 1.5
+  attackDamage: 50
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1792
+  attackPoint: {fileID: 1256902357624022602}
+  attackCooldown: 1
+  hitMarkers: {fileID: 0}
 --- !u!1 &8880219630882712034
 GameObject:
   m_ObjectHideFlags: 0
