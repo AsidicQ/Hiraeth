@@ -21,7 +21,6 @@ public class WeaponFactory : IWeaponFactory
         weapon.transform.localPosition += weaponPosition;
         weapon.transform.localRotation = Quaternion.identity;
         weapon.GetComponent<GunBase>().ApplyWeaponData(weaponStats);
-        //weapon.GetComponent<Recoil>().ApplyRecoilData(weaponRecoil);
         return weapon;
     }
 }

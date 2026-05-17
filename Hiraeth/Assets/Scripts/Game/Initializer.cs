@@ -7,7 +7,6 @@ public class Initializer : MonoBehaviour
     [Header("Weapon Scripts")]
     public SwordAttack swordAttack;
     public ChakramMelee chakramMelee;
-    //public RecoilProfiles recoilProfiles;
     public WeaponProfiles weaponStats;
 
     [Header("Player Scripts")]

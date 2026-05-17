@@ -30,6 +30,8 @@ public class ChakramMelee : MonoBehaviour
 
     public IEnumerator MeleeAttack()
     {
+        if (isAttacking) yield break;
+
         isAttacking = true;
         animator.SetTrigger("Attack");
         animator.SetInteger("RandomAttackIndex", randomAttackIndex);

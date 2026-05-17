@@ -48,7 +48,13 @@ public class WeaponEquipManager : MonoBehaviour
         if (currentWeaponObject != null)
             Destroy(currentWeaponObject);
 
-        currentWeaponObject = weaponFactory.CreateWeapon(newWeapon, weaponParent, spawnOffset);
+        currentWeaponObject = weaponFactory.CreateWeapon(newWeapon, weaponParent, weaponPosition);
+
+        if (currentWeaponObject == null)
+        {
+            Debug.LogError("WeaponFactory failed to create weapon!");
+            return;
+        }
 
         gunBase = currentWeaponObject.GetComponent<GunBase>();
         currentWeapon = newWeapon;

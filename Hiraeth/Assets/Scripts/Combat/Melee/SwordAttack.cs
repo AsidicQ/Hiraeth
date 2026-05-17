@@ -14,7 +14,7 @@ public class SwordAttack : MonoBehaviour
 
     [Header("Animations")]
     private Animator animator;
-    private int randomAttackIndex;
+    private int comboCount;
     public float attackCooldown = 1f;
     private bool isAttacking = false;
 
@@ -30,21 +30,26 @@ public class SwordAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(attackKey) && !isAttacking)
         {
-            RandomiseAnimation();
+            comboCount = (comboCount + 1) % 3; // Cycle through combo attacks (0, 1, 2)
             StartCoroutine(MeleeAttack());
-        }
-    }
 
-    public void RandomiseAnimation()
-    {
-        randomAttackIndex = Random.Range(0, 2);
+            float comboResetTime = 1.5f; // Time to reset combo if no attack is made
+            if (comboCount > 0)
+            {
+                comboResetTime -= Time.deltaTime;
+                if (comboResetTime <= 0)
+                {
+                    comboCount = 0; // Reset combo if time runs out
+                }
+            }
+        }
     }
 
     public IEnumerator MeleeAttack()
     {
         isAttacking = true;
         animator.SetTrigger("Attack");
-        animator.SetInteger("RandomAttackIndex", randomAttackIndex);
+        animator.SetInteger("ComboCount", comboCount);
 
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, sphereRange, enemyLayer);
 
