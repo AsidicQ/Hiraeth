@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Movement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
     public float walkSpeed;
+    public float runSpeed;
     public float sprintSpeed;
     public bool isSprinting;
     public bool canSprint;
@@ -14,12 +16,8 @@ public class Movement : MonoBehaviour
     public float jumpForce;
     public float jumpCoolDown;
     public float airMultiplier;
-    bool readyToJump;
-
-    [Header("Crouching")]
-    public float crouchSpeed;
-    public float crouchYScale;
-    private float startYScale;
+    [SerializeField] private bool readyToJump;
+    [SerializeField] private bool doubleJumped;
 
     [Header("Ground Check")]
     float groundDrag = 5f;
@@ -36,7 +34,7 @@ public class Movement : MonoBehaviour
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode walkKey = KeyCode.LeftControl;
 
     public Transform orientation;
 
@@ -44,8 +42,8 @@ public class Movement : MonoBehaviour
     float verticalInput;
 
     Vector3 moveDirection;
-    Vector3 currentPos;
     public static bool canMove = true;
+    public bool sprintFromDash = false;
 
     public Rigidbody rb;
 
@@ -53,9 +51,9 @@ public class Movement : MonoBehaviour
 
     public enum MovementState
     {
-        Walking,
+        Running,
         Sprinting,
-        Crouching,
+        Walking,
         Air
     }
 
@@ -64,25 +62,31 @@ public class Movement : MonoBehaviour
         bool sliding = Physics.Raycast(transform.position, Vector3.down, slidingThreshold, whatIsGround);
         bool tooSteep = OnSlope() && Vector3.Angle(Vector3.up, slopeHit.normal) > maxSlopeAngle;
 
-        if (grounded && Input.GetKey(sprintKey) && canSprint && (rb.linearVelocity.magnitude >= 0.1f))
+        if (grounded && (Input.GetKey(sprintKey) || sprintFromDash) && canSprint && (rb.linearVelocity.magnitude >= 0.1f))
         {
             state = MovementState.Sprinting;
-            isSprinting = true;
-            moveSpeed = Mathf.MoveTowards(moveSpeed, sprintSpeed, accelerationSpeed * Time.deltaTime);
+
+            if (state == MovementState.Sprinting)
+            {
+                isSprinting = true;
+                moveSpeed = Mathf.MoveTowards(moveSpeed, sprintSpeed, accelerationSpeed * Time.deltaTime);
+            }
         }
 
-        else if (Input.GetKey(crouchKey))
+        else if (Input.GetKey(walkKey) || tooSteep)
         {
-            state = MovementState.Crouching;
-            moveSpeed = crouchSpeed;
+            state = MovementState.Walking;
+            moveSpeed = walkSpeed;
             isSprinting = false;
+            canSprint = false;
         }
 
         else if (grounded)
         {
-            state = MovementState.Walking;
+            state = MovementState.Running;
             isSprinting = false;
-            moveSpeed = Mathf.MoveTowards(moveSpeed, walkSpeed, accelerationSpeed * Time.deltaTime);
+            canSprint = true;
+            moveSpeed = Mathf.MoveTowards(moveSpeed, runSpeed, accelerationSpeed * Time.deltaTime);
         }
 
         else if (sliding && Input.GetKey(sprintKey) && canSprint)
@@ -106,9 +110,9 @@ public class Movement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         canSprint = true;
+        doubleJumped = false;
 
-        startYScale = transform.localScale.y;
-        moveSpeed = walkSpeed;
+        moveSpeed = runSpeed;
     }
 
     private void Update()
@@ -122,6 +126,17 @@ public class Movement : MonoBehaviour
             MyInput();
             SpeedControl();
             StateHandler();
+        }
+
+        if (sprintFromDash && !Input.GetKey(KeyCode.W))
+        {
+            sprintFromDash = false;
+        }
+
+        if (grounded && doubleJumped)
+        {
+            doubleJumped = false;
+            readyToJump = true;
         }
     }
 
@@ -142,25 +157,20 @@ public class Movement : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump)
         {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCoolDown);
-        }
-
-        if (Input.GetKeyDown(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-            canSprint = false;
-        }
-        if (Input.GetKeyUp(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            canSprint = true;
+            if (grounded)
+            {
+                Jump();
+                doubleJumped = false;
+                Invoke(nameof(ResetJump), jumpCoolDown);
+            }
+            else if (!doubleJumped && !grounded)
+            {
+                doubleJumped = true;
+                readyToJump = false;
+                Jump();
+            }
         }
     }
 
@@ -219,6 +229,9 @@ public class Movement : MonoBehaviour
         exitingSlope = true;
 
         rb.angularVelocity = new Vector3(rb.angularVelocity.x, 0f, rb.angularVelocity.z);
+        Vector3 velocity = rb.linearVelocity;
+        velocity.y = 0f;
+        rb.linearVelocity = velocity;
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }

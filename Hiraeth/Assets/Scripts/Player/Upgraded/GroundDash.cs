@@ -16,6 +16,13 @@ public class GroundDash : MonoBehaviour
     public float dashTiltAmount = 5f;
     public KeyCode dashKey = KeyCode.LeftAlt;
     public LayerMask collisionMask = ~0;
+    public float lastPressTime = -1f;
+    public float holdThreshold = 0.3f;
+
+    [Header("Boolean Checks")]
+    private bool doubleTapDetected;
+    public bool isDashing;
+    public bool dashKeyPressed;
 
     [Header("Collision Settings")]
     public float skin = 0.01f;
@@ -23,8 +30,6 @@ public class GroundDash : MonoBehaviour
     [Header("Visual Effects")]
     public ParticleSystem dashParticles;
     public ParticleSystem dashShadow;
-
-    public bool isDashing;
 
     void Start()
     {
@@ -37,6 +42,25 @@ public class GroundDash : MonoBehaviour
         if (Input.GetKeyDown(dashKey) && !isDashing)
         {
             StartCoroutine(DashRoutine());
+            dashKeyPressed = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) && !isDashing)
+        {
+            float timeSinceLastPress = Time.time - lastPressTime;
+
+            if (timeSinceLastPress <= holdThreshold)
+            {
+                doubleTapDetected = true;
+            }
+
+            lastPressTime = Time.time;
+
+            if (doubleTapDetected)
+            {
+                StartCoroutine(DashRoutine());
+                doubleTapDetected = false;
+            }
         }
     }
 
@@ -134,6 +158,19 @@ public class GroundDash : MonoBehaviour
         Movement.canMove = true;
         isDashing = false;
         StartCoroutine(FadeOutDashBob());
+
+        if (Input.GetKey(KeyCode.W) && !dashKeyPressed)
+        {
+            movement.sprintFromDash = true;
+        }
+        
+        if (!Input.GetKey(KeyCode.W) && !dashKeyPressed)
+        {
+            movement.sprintFromDash = false;
+        }
+
+        if (dashKeyPressed)
+            dashKeyPressed = false;
     }
 
     bool TryGetBlockedDistance(Vector3 moveDirection, float maxDistance, LayerMask mask, out float hitDistance, out Vector3 hitNormal)

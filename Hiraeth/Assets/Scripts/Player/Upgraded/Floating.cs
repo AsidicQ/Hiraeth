@@ -47,7 +47,7 @@ public class Floating : MonoBehaviour
             Vector3 velocity = movement.rb.linearVelocity;
             velocity.y += upwardGravity * Time.fixedDeltaTime;
 
-            movement.moveSpeed = Mathf.MoveTowards(movement.walkSpeed, floatingSpeed, speedDuration);
+            movement.moveSpeed = Mathf.MoveTowards(movement.runSpeed, floatingSpeed, speedDuration);
         }
         else
         {

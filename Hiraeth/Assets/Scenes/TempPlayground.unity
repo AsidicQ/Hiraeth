@@ -10452,8 +10452,8 @@ Transform:
   m_GameObject: {fileID: 386015724}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -27.78, y: 4.79, z: -11.1}
-  m_LocalScale: {x: 15, y: 10, z: 0.5}
+  m_LocalPosition: {x: -27.78, y: 3.86, z: -11.1}
+  m_LocalScale: {x: 15, y: 8, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1586800774}
@@ -17881,7 +17881,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   moveSpeed: 0
-  walkSpeed: 2.5
+  walkSpeed: 1.85
+  runSpeed: 3.5
   sprintSpeed: 6.5
   isSprinting: 0
   canSprint: 0
@@ -17889,8 +17890,8 @@ MonoBehaviour:
   jumpForce: 15
   jumpCoolDown: 0.4
   airMultiplier: 1.25
-  crouchSpeed: 2
-  crouchYScale: 1
+  readyToJump: 0
+  doubleJumped: 0
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -17900,8 +17901,9 @@ MonoBehaviour:
   slidingThreshold: 0.3
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 306
+  walkKey: 306
   orientation: {fileID: 1375543119}
+  sprintFromDash: 0
   rb: {fileID: 0}
   state: 0
 --- !u!54 &1799647276
@@ -18026,10 +18028,13 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  lastPressTime: -1
+  holdThreshold: 0.2
+  isDashing: 0
+  dashKeyPressed: 0
   skin: 0.01
   dashParticles: {fileID: 154763868}
   dashShadow: {fileID: 839528866}
-  isDashing: 0
 --- !u!114 &1799647279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18709,7 +18714,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980842500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2caf232969a9f464ebe4fbf7aae5f47a, type: 2}
   m_CullingMode: 0
@@ -19534,7 +19539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1713504682682614230, guid: e835959722b6a5d4eb25c1f353b60b4c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3695008117385891332, guid: e835959722b6a5d4eb25c1f353b60b4c, type: 3}
       propertyPath: m_LocalPosition.x
