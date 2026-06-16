@@ -17840,6 +17840,7 @@ GameObject:
   - component: {fileID: 1799647282}
   - component: {fileID: 1799647281}
   - component: {fileID: 1799647279}
+  - component: {fileID: 1799647283}
   - component: {fileID: 1799647278}
   - component: {fileID: 1799647275}
   - component: {fileID: 1799647280}
@@ -18108,6 +18109,24 @@ MonoBehaviour:
   gunBase: {fileID: 0}
   initializer: {fileID: 2083027139}
   spawnOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &1799647283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799647273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca649fa610ce3874c83894ba118b75f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallClimbing
+  climbSpeed: 3
+  climbHeight: 8
+  climbActivationThreshold: 1.1
+  speedToClimbNeeded: 2
+  ejectionForce: 5
+  ejectKey: 101
 --- !u!1 &1800853061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7725550455073907413, guid: fc5a676d2c90b3d4f8a22e369c35950d, type: 3}
