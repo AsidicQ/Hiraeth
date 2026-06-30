@@ -18121,7 +18121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca649fa610ce3874c83894ba118b75f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallClimbing
-  climbSpeed: 3
+  climbSpeed: 1.2
   climbHeight: 8
   climbActivationThreshold: 1.1
   speedToClimbNeeded: 2

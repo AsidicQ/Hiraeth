@@ -5,7 +5,7 @@ using UnityEngine;
 public class WallClimbing : MonoBehaviour
 {
     [Header("Climbing Settings")]
-    public float climbSpeed = 3f;
+    public float climbSpeed = 1.2f;
     public float climbHeight = 8f;
     public float climbActivationThreshold = 1f;
     public float speedToClimbNeeded = 2f;
@@ -13,11 +13,13 @@ public class WallClimbing : MonoBehaviour
 
     [Header("Ejection Settings")]
     public float ejectionForce = 5f;
-    private Transform wallToEjectFrom;
+    public float ejectJumpForce = 1.5f;
+    private Vector3 wallNormal;
 
     [Header("References")]
     private Movement movementScript;
     private Rigidbody playerBody;
+    private float climbingStartHeight;
 
     [Header("Keybinds")]
     public KeyCode ejectKey = KeyCode.E;
@@ -31,41 +33,69 @@ public class WallClimbing : MonoBehaviour
     void Update()
     {
         DetectingClimb();
+
+        if (isClimbing && Input.GetKeyDown(ejectKey))
+        {
+            EjectWall();
+        }
     }
 
     void DetectingClimb()
     {
+        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(movementScript.jumpKey))
+        {
+            isClimbing = false;
+            Gravity.isGravityEnabled = true;
+            return;
+        }
+
         if (Input.GetKey(KeyCode.W) && Input.GetKey(movementScript.jumpKey))
         {
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, climbActivationThreshold))
             {
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Walls"))
                 {
-                    ClimbForce();
-                    wallToEjectFrom = hit.transform;
+                    if (playerBody.linearVelocity.magnitude >= speedToClimbNeeded)
+                    {
+                        ClimbForce();
+                        wallNormal = hit.normal;
+                    }
                 }
                 else
+                {
                     isClimbing = false;
+                    Gravity.isGravityEnabled = true;
+                }
             }
         }
     }
 
     void ClimbForce()
     {
-        isClimbing = true;
-        playerBody.AddForce(transform.up * climbSpeed, ForceMode.Impulse);
-
-        if (Input.GetKeyDown(ejectKey))
+        if (!isClimbing)
         {
-            EjectWall();
+            climbingStartHeight = transform.position.y;
         }
+
+        if (transform.position.y >= climbingStartHeight + climbHeight)
+        {
+            isClimbing = false;
+            Gravity.isGravityEnabled = true;
+            return;
+        }
+
+        Gravity.isGravityEnabled = false;
+        isClimbing = true;
+
+        playerBody.linearVelocity = Vector3.up * climbSpeed;
     }
 
     void EjectWall()
     {
         isClimbing = false;
+        Gravity.isGravityEnabled = true;
 
-        Vector3 ejectDirection = (transform.position - wallToEjectFrom.position).normalized;
-        playerBody.AddForce(ejectDirection * ejectionForce, ForceMode.Impulse);
+        Vector3 ejectJump = wallNormal + Vector3.up * ejectJumpForce;
+        playerBody.AddForce(ejectJump.normalized * ejectionForce, ForceMode.Impulse);
     }
 }

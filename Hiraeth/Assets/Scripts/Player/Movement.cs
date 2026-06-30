@@ -53,6 +53,7 @@ public class Movement : MonoBehaviour
         Running,
         Sprinting,
         Walking,
+        Climbing,
         Air
     }
 
@@ -60,6 +61,13 @@ public class Movement : MonoBehaviour
     {
         bool sliding = Physics.Raycast(transform.position, Vector3.down, slidingThreshold, whatIsGround);
         bool tooSteep = OnSlope() && Vector3.Angle(Vector3.up, slopeHit.normal) > maxSlopeAngle;
+
+        if (WallClimbing.isClimbing)
+        {
+            state = MovementState.Climbing;
+            canSprint = false;
+            isSprinting = false;
+        }
 
         if (grounded && (Input.GetKey(sprintKey) || sprintFromDash) && canSprint && (rb.linearVelocity.magnitude >= 0.1f))
         {
